@@ -1,0 +1,77 @@
+### create an event
+POST http://localhost:3000/events
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYXJ2b0BnbWFpbC5jb20iLCJyb2xlIjoiRVZFTlRfTUFOQUdFUiIsImlhdCI6MTcyMTY1NjEwOCwiZXhwIjoxNzIxNjU5NzA4fQ.5V9_Nlcnz2Y3TySu9Nb9fOWLuBdRmdoYE8ig8oOLw_A
+
+
+{
+  "title": "Crunchyroll wards 2024",
+  "description": "Join us for a weekend of anime and manga!",
+  "date": "2024-09-20T00:00:00Z",
+  "time": "2024-09-20T09:00:00Z",
+  "location": "Central Park, Wano",
+  
+  "price": 75.00,
+  "managerId": 2,
+  "ticketTypes": [
+  ]
+}
+
+
+
+### update an event
+PUT  http://localhost:3000/events/14
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYXJ2b0BnbWFpbC5jb20iLCJyb2xlIjoiRVZFTlRfTUFOQUdFUiIsImlhdCI6MTcyMTYzNzgwOCwiZXhwIjoxNzIxNjQxNDA4fQ.w_iEGPAxqCpjF_K8pruew6BsBCEe8waWp-GqGHZeXRY
+
+
+{
+  "title": " Anime Music Festival 2024",
+  "description": "Join us for a weekend of anime and manga!",
+  "date": "2024-09-20T00:00:00Z",
+  "time": "2024-09-20T09:00:00Z",
+  "location": "Central Park, Wano",
+  "image": "https://i.pinimg.com/474x/fb/49/64/fb49643e7e84f697c2a5494518bcc07f.jpg",
+  "price": 75.00,
+  "managerId": 2,
+  "ticketTypes": [
+    {
+      "type": "Single",
+      "price": 75.00,
+      "availability": 50
+    },
+    {
+      "type": "Group",
+      "price": 150.00,
+      "availability": 10
+    }
+  ]
+}
+
+
+
+### Login as manager
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+    "email": "marvo@gmail.com",
+    "password": "marvo@MIX"
+}
+
+
+
+### delete an event
+DELETE  http://localhost:3000/events/14
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYXJ2b0BnbWFpbC5jb20iLCJyb2xlIjoiRVZFTlRfTUFOQUdFUiIsImlhdCI6MTcyMTYzNzgwOCwiZXhwIjoxNzIxNjQxNDA4fQ.w_iEGPAxqCpjF_K8pruew6BsBCEe8waWp-GqGHZeXRY
+
+
+### get All events
+GET http://localhost:3000/events
+Content-Type: application/json
+Authorization: Bearer 
+
+
+### get specific events
+GET http://localhost:3000/events/13

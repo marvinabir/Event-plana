@@ -1,0 +1,45 @@
+### get user profile
+GET  http://localhost:3000/profiles/116
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE2LCJlbWFpbCI6IndoaXRuZXlAZ21haWwuY29tIiwicm9sZSI6IkFUVEVOREVFIiwiaWF0IjoxNzIxMzg3MDUxLCJleHAiOjE3MjEzOTA2NTF9.hqhd0fMeBqgbMxWXPSYb8niXlOSEtJbZuVZWZSS_xDA
+
+
+
+
+### update profile
+PUT http://localhost:3000/profiles/116
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE2LCJlbWFpbCI6IndoaXRuZXlAZ21haWwuY29tIiwicm9sZSI6IkFUVEVOREVFIiwiaWF0IjoxNzIxMzg3MDUxLCJleHAiOjE3MjEzOTA2NTF9.hqhd0fMeBqgbMxWXPSYb8niXlOSEtJbZuVZWZSS_xDA
+
+
+{
+  "name": "DANIGGA",
+  "email": "gamesmy177@gmail.com"
+}
+
+
+
+### Reset Password
+POST http://localhost:3000/users/reset
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE2LCJlbWFpbCI6IndoaXRuZXlAZ21haWwuY29tIiwicm9sZSI6IkFUVEVOREVFIiwiaWF0IjoxNzIxMzg2NTk3LCJleHAiOjE3MjEzOTAxOTd9.yUimU9kReplQZjYyYEQGJhM5aAKiQEChhDJ9plM97Yc
+
+
+{
+    "email": "gamesmy177@gmail.com",
+    "newPassword": "Password923"
+}
+
+
+
+### Login
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+
+{
+    "email": "gamesmy177@gmail.com",
+    "password": "Password123"
+}
+
+

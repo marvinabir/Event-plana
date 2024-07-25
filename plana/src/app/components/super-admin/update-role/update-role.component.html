@@ -1,0 +1,39 @@
+<div class="page-container">
+  <app-admin-sidebar></app-admin-sidebar>
+
+<div class="page-content">
+  
+<div class="update-role-container">
+  <h2>Update User Role</h2>
+  <form [formGroup]="updateRoleForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="userId">User ID</label>
+      <input id="userId" formControlName="userId" type="number" />
+      <div *ngIf="updateRoleForm.get('userId')?.invalid && updateRoleForm.get('userId')?.touched">
+        <small class="error">Please enter a valid User ID.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="role">Role</label>
+      <select id="role" formControlName="role">
+        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+      </select>
+      <div *ngIf="updateRoleForm.get('role')?.invalid && updateRoleForm.get('role')?.touched">
+        <small class="error">Please select a valid role.</small>
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <button type="submit" [disabled]="updateRoleForm.invalid">Update Role</button>
+  </form>
+</div>
+
+
+</div>
+</div>
+
+

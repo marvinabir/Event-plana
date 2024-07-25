@@ -1,0 +1,38 @@
+<!-- <div class="page-container">
+    <-sidebar></-sidebar>
+<div class="page-content">
+    <-navbar></-navbar>
+    <page-content></page-content>
+</div>
+</div> -->
+
+
+
+<div class="top">
+<div class="cd1">
+    <div class="ct1"></div>
+    <div class="ct2"><p>Total Events: {{ analyticsData.totalEvents }}</p></div>
+</div>
+
+<div class="cd1">
+    <div class="ct1"></div>
+    <div class="ct2"><p>Total Attendees: {{ analyticsData.totalAttendees }}</p></div>
+</div>
+
+<div class="cd1">
+    <div class="ct1"></div>
+    <div class="ct2"><p>Total Revenue: ${{ analyticsData.totalRevenue }}</p></div>
+</div>
+</div>
+
+
+<div class="storage">
+    <h3>Using Storage</h3>
+    <div class="storage-bar">
+      <div class="regular" [style.width]="(storage.regular / storage.total * 100) + '%'"></div>
+      <div class="system" [style.width]="(storage.system / storage.total * 100) + '%'"></div>
+      <div class="shared" [style.width]="(storage.shared / storage.total * 100) + '%'"></div>
+      <div class="free" [style.width]="(storage.free / storage.total * 100) + '%'"></div>
+    </div>
+    <p>{{ storage.used }} MB of {{ storage.total }} GB</p>
+  </div>

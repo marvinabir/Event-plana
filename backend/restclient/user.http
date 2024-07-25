@@ -1,0 +1,95 @@
+### Register a new user
+POST http://localhost:3000/users/register
+Content-Type: application/json
+
+
+{
+    "email": "marco@gmail.com",
+    "password": "phoenix",
+    "name": "Pineapple"
+    
+}
+
+
+### Register a new super-admin user
+POST http://localhost:3000/users/register
+Content-Type: application/json
+
+{
+    "email": "marvotheone@gmail.com",
+    "password": "theonlyone",
+    "name": "Marvothe1",
+    "role": "SUPER_ADMIN"
+}
+
+
+### Register a new manager user
+POST http://localhost:3000/users/register
+Content-Type: application/json
+
+{
+    "email": "marvothegoat@gmail.com",
+    "password": "ilovemarvo",
+    "name": "Marvothegoat",
+    "role": "EVENT_MANAGER"
+}
+
+
+
+### Login
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+
+{
+    "email": "gamesmy177@gmail.com",
+    "password": "password"
+    
+}
+
+
+
+### Login as super-admin
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+    "email": "marvo2@gmail.com",
+    "password": "marvo@MIX"
+}
+
+
+
+### Login as manager
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+    "email": "marvo@gmail.com",
+    "password": "marvo@MIX"
+}
+
+
+
+
+
+### Reset Password
+POST http://localhost:3000/users/reset
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE2LCJlbWFpbCI6IndoaXRuZXlAZ21haWwuY29tIiwicm9sZSI6IkFUVEVOREVFIiwiaWF0IjoxNzIxMzg2NTk3LCJleHAiOjE3MjEzOTAxOTd9.yUimU9kReplQZjYyYEQGJhM5aAKiQEChhDJ9plM97Yc
+
+{
+    "email": "whitney@gmail.com",
+    "newPassword": "Password823"
+}
+
+
+
+### Login as super-admin
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+    "email": "whitney@gmail.com",
+    "password": "password"
+}

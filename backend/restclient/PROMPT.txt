@@ -1,0 +1,246 @@
+given the following backend (service,controller,routes)files and the http endpoints, generate a (service,controller,routes)files, the http endpoints for deleting a user:
+
+the interfaces:
+export enum Role {
+    ATTENDEE = "ATTENDEE",
+    EVENT_MANAGER = "EVENT_MANAGER",
+    SUPER_ADMIN = "SUPER_ADMIN"
+  }
+  
+import {Role} from "./role.enum"
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  role: 'ATTENDEE' | 'EVENT_MANAGER' | 'SUPER_ADMIN';
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+
+
+backend:service.ts:
+import { User } from '../interfaces/user';
+import { Role } from "../interfaces/role.enum";
+/**
+ * Function to get all users
+ * @returns 
+ */
+const getAllUsersService = async (): Promise<User[]> => {
+  return await prisma.user.findMany();
+};
+/**
+ * Function to get a single user by ID
+ * @param userId 
+ * @returns 
+ */
+const getSingleUserService = async (userId: number): Promise<User | null> => {
+  return await prisma.user.findUnique({
+    where: { id: userId },
+  });
+};
+/* Function to update the role of a user
+ * @param userId
+ * @param newRole
+ * @returns
+ */
+const updateUserRoleService = async (userId: number, newRole: Role): Promise<User | null> => {
+  return await prisma.user.update({
+    where: { id: userId },
+    data: { role: newRole, updatedAt: new Date() },
+  });
+};
+export { getAllUsersService, getSingleUserService, updateUserRoleService }
+
+
+
+backend:controller.ts:
+import { getAllUsersService, getSingleUserService, updateUserRoleService } from "../services/admin-user.service";
+/**
+ * Controller to get all users
+ * @param req 
+ * @param res 
+ */
+const getAllUsers = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const users = await getAllUsersService();
+    res.status(200).json(users);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+};
+/**
+ * Controller to get a single user
+ * @param req 
+ * @param res 
+ */
+const getSingleUser = async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  try {
+    const user = await getSingleUserService(parseInt(id));
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+};
+/**
+ * Controller to update the role of a user
+ * @param req
+ * @param res
+ */
+const updateUserRole = async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const { role } = req.body;
+  try {
+    const updatedUser = await updateUserRoleService(parseInt(id), role);
+    if (updatedUser) {
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+};
+export { getAllUsers, getSingleUser,updateUserRole };
+
+
+
+backend:routes.ts:
+const router = Router();
+router.get('/users', getAllUsers);
+router.get('/users/:id', getSingleUser);
+router.put('/users/:id/role', updateUserRole);
+export default router;
+
+
+backend:http-endpoint:
+### get All Users
+GET http://localhost:3000/admin/users
+Content-Type: application/json
+Authorization: Bearer <token>
+
+### get single User
+GET http://localhost:3000/admin/users/116
+Content-Type: application/json
+Authorization: Bearer <token>
+
+### update userRoles
+PUT http://localhost:3000/admin/users/116/role
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "role": "ATTENDEE"
+}
+
+
+update the frontend service below and add the request for deleting a user:
+frontend: admin-user service:
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminUserService {
+  private apiUrl = 'http://localhost:3000/admin/users';
+  constructor(private http: HttpClient) {}
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
+  /**
+   * Get all users
+   * @returns Observable<User[]>
+   */
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl, { headers: this.getAuthHeaders() });
+  }
+  /**
+   * Get a single user by ID
+   * @param id number
+   * @returns Observable<User>
+   */
+  getSingleUser(id: number): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() });
+  }
+  /**
+   * Update the role of a user
+   * @param userId number
+   * @param newRole Role
+   * @returns Observable<User>
+   */
+  updateUserRole(userId: number, newRole: Role): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/${userId}/role`, { role: newRole }, { headers: this.getAuthHeaders() });
+  }
+  
+}
+
+
+Remember to add and not change or modify anything just add and highlight the added code as instructed above
+
+
+
+
+
+now i want you to also modify the html and ts code below so that on clicking the deactivate button the user is deactivated and the text on the button should change to activate and on clicking it again the user is activated and the text on the button should change to deactivate:
+
+the html:
+<table class="event-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Email</th>
+        <th>setrole</th>
+        <th>Actions</th>
+        <th>status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <button (click)="deleteUser(user.id)">Delete</button>
+        </td>
+        <td>
+          <button class="button" [routerLink]="['/role']">reset</button>
+        </td>
+        <td>
+           <button class="button" >deactivate</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  the ts:
+  @Component({
+  selector: 'app-user-management',
+  standalone: true,
+  imports: [CommonModule, AdminSidebarComponent,RouterLink, HttpClientModule],
+  templateUrl: './user-management.component.html',
+  styleUrls: ['./user-management.component.css']
+})
+export class UserManagementComponent implements OnInit {
+  users: User[] = [];
+  constructor(private adminUserService: AdminUserService) {}
+  ngOnInit(): void {
+    this.adminUserService.getAllUsers().subscribe((data: User[]) => {
+      this.users = data;
+    });
+  }
+  deleteUser(id: number): void {
+    this.adminUserService.deleteUser(id).subscribe(() => {
+      this.users = this.users.filter(user => user.id !== id);
+    });
+  }
+}

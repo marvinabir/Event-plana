@@ -1,0 +1,175 @@
+### create a booking
+POST http://localhost:3000/bookings
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE3LCJlbWFpbCI6ImdhbWVzbXkxNzdAZ21haWwuY29tIiwicm9sZSI6IkFUVEVOREVFIiwiaWF0IjoxNzIxNzE5NTc1LCJleHAiOjE3MjE3MjMxNzV9.BHxO111bBwWGXnhb-qoi2uIFos7oj3CfJclajTh_3wc
+
+{
+  "userId": 117,
+  "eventId": 13,
+  "ticketTypeId": 32,
+  "status": "CONFIRMED"
+}
+
+
+
+
+### get All Bookings
+GET http://localhost:3000/bookings
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYXJ2b0BnbWFpbC5jb20iLCJyb2xlIjoiRVZFTlRfTUFOQUdFUiIsImlhdCI6MTcyMTcxOTUzMSwiZXhwIjoxNzIxNzIzMTMxfQ.CD2aIUgxXtYseiQX5UrIech_jUCBGGQy4GkC21RMN08
+
+
+
+### get all bookings for a specific user
+GET http://localhost:3000/bookings/user/
+Content-Type: application/json
+Authorization: Bearer 
+
+
+
+
+### get all bookings for a specific user
+GET http://localhost:3000/bookings/user/
+Content-Type: application/json
+Authorization: Bearer 
+
+
+
+### update booking status
+PUT http://localhost:3000/bookings/status/7
+Content-Type: application/json
+Authorization: Bearer 
+
+
+{
+  "status": "CONFIRMED" 
+}
+
+
+
+### get a specific booking
+GET http://localhost:3000/bookings/7
+Content-Type: application/json
+Authorization: Bearer 
+
+
+
+### update status for a specific booking for a specific user
+PUT http://localhost:3000/bookings/user/1/booking/9/status
+Content-Type: application/json
+Authorization: Bearer 
+
+
+{
+  "status": "CANCELLED" 
+}
+
+
+
+### update All booking status for a specific user
+PUT http://localhost:3000/bookings/user/:userId/status
+Content-Type: application/json
+Authorization: Bearer 
+
+{
+  "status": "CONFIRMED" 
+}
+
+
+
+
+### Login
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+    "email": "gamesmy177@gmail.com",
+    "password": "Password123"
+    
+}
+
+
+### Login as manager
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+    "email": "marvo@gmail.com",
+    "password": "marvo@MIX"
+}
+
+
+
+
+
+### update a booking
+PUT http://localhost:3000/bookings/6
+Content-Type: application/json
+Authorization: Bearer 
+
+{
+    "userId": 8,
+    "eventId": 1,
+    "ticketTypeId": 1,
+    "status": "CANCELLED"
+}
+
+
+### get all bookings for a specific user
+GET http://localhost:3000/bookings/user/117
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE3LCJlbWFpbCI6ImdhbWVzbXkxNzdAZ21haWwuY29tIiwicm9sZSI6IkFUVEVOREVFIiwiaWF0IjoxNzIxMzk2NjA2LCJleHAiOjE3MjE0MDAyMDZ9.NujBlfEN7UG24DlzyskIL_80dRc7wCBAGgGSrXjrB50
+
+
+
+
+
+### create group bookings
+POST http://localhost:3000/bookings/group
+Content-Type: application/json
+Authorization: Bearer 
+
+[
+  
+  {
+    "userId": 58,
+    "eventId": 1,
+    "ticketTypeId": 1,
+    "status": "CONFIRMED"
+  },
+  {
+    "userId": 58,
+    "eventId": 1,
+    "ticketTypeId": 1,
+    "status": "CONFIRMED"
+  },
+  {
+    "userId": 1,
+    "eventId": 1,
+    "ticketTypeId": 1,
+    "status": "CONFIRMED"
+  },
+  {
+    "userId": 58,
+    "eventId": 1,
+    "ticketTypeId": 1,
+    "status": "CONFIRMED"
+  }
+]
+
+
+### get group bookings
+GET http://localhost:3000/bookings/group/58/1
+Content-Type: application/json
+Authorization: Bearer
+
+
+
+
+
+# ### delete a specific booking
+# DELETE http://localhost:3000/bookings/1
+# Content-Type: application/json
+# Authorization: Bearer 
+
+

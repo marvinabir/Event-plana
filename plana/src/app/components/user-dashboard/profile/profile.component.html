@@ -1,0 +1,99 @@
+ <!-- component -->
+ <div class="flex h-screen">
+  <!-- Left Pane -->
+  <div class="hidden lg:flex items-center justify-center flex-1 bg-white text-black">
+    <div class="max-w-md text-center">
+      <div class="max-w-md w-full p-6">    
+        <form [formGroup]="resetPasswordForm" (ngSubmit)="onSubmitPasswordReset()" class="space-y-4">
+        <!-- Your form elements go here -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input id="email" formControlName="email" type="email" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+        </div>
+        <div>
+          <label for="newPassword" class="block text-sm font-medium text-gray-700">New Password</label>
+          <input id="newPassword" formControlName="newPassword" type="password" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+        </div>
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage" class="success-message">
+          {{ successMessage }}
+        </div>
+        <div>
+          <button type="submit" [disabled]="resetPasswordForm.invalid" class="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Submit</button>
+        </div>
+      </form>
+    </div>
+    </div>
+  </div>
+
+
+
+  <!-- Right Pane -->
+  <div class="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
+    <div class="max-w-md text-center">
+    <div class="max-w-md w-full p-6">    
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmitProfileUpdate()" class="space-y-4">
+        <!-- Your form elements go here -->
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+          <input id="name" formControlName="name" type="text" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input id="email" formControlName="email" type="email" class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
+        </div>
+        
+        <div>
+          <button type="submit" [disabled]="profileForm.invalid" class="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+<!-- <app-navbar></app-navbar>
+<div class="profile-container" *ngIf="userProfile">
+    <h2>Profile</h2>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmitProfileUpdate()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" formControlName="name" type="text" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" />
+      </div>
+      <button type="submit" [disabled]="profileForm.invalid">Update Profile</button>
+    </form>
+  </div>
+  <div *ngIf="!userProfile">
+    <p>Loading profile...</p>
+  </div>
+  
+  <div class="reset-password-container">
+    <h2>Reset Password</h2>
+    <form [formGroup]="resetPasswordForm" (ngSubmit)="onSubmitPasswordReset()">
+      <div>
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email">
+      </div>
+      <div>
+        <label for="newPassword">New Password</label>
+        <input id="newPassword" formControlName="newPassword" type="password">
+      </div>
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+      </div>
+      <button type="submit" [disabled]="resetPasswordForm.invalid">Reset Password</button>
+    </form>
+  </div>
+   -->

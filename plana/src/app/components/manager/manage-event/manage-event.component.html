@@ -1,0 +1,374 @@
+<!-- <div class="page-container">
+    <-sidebar></-sidebar>
+<div class="page-content">
+    <-navbar></-navbar>
+    <page-content></page-content>
+</div>
+</div> -->
+
+
+<div class="manager-container">
+  <app-manager-sidebar></app-manager-sidebar>
+
+  <div class="manager-content">
+    <app-manager-navbar></app-manager-navbar>
+
+    <div class="cards">
+      <div class="card">
+        <i class="fa-solid fa-ticket fa-3x" style="color: aqua;"></i>
+        <p>Bookings</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-circle-user fa-3x" style="color: rgb(178, 3, 178);"></i>
+        <p>Attendees</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-calendar-days fa-3x" style="color: rgb(0, 255, 68);"></i>
+        <p>Events</p>
+      </div>
+    </div>
+
+    <div class="add">
+      <button class="addbtn" (click)="toggleForm()" style="background-color:#fff;">
+        <i class="fa-duotone fa-plus" style="font-size:25px;color:#939393;background-color:#fff;margin-bottom:17px;"></i>
+      </button>
+      <p style="font-size:13.7px;margin-top:12px;margin-left:4px;">Add Event</p>
+    </div>
+
+    <table class="event-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Location</th>
+          <th>Price</th>
+          <th>Event Date</th>
+          <th>Event Time</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of displayedEvents">
+          <td>{{ event.title }}</td>
+          <td>{{ event.description }}</td>
+          <td>{{ event.location }}</td>
+          <td>${{ event.price }}</td>
+          <td>{{ event.date | date }}</td>
+          <td>{{ event.time | date:'shortTime' }}</td>
+          <td>
+            <button (click)="editEvent(event)" class="edit-btn">
+              <i class="fa-regular fa-pen-to-square" style="color: #10da3c;font-size:15px;background-color:#fbfbfb;"></i>
+            </button>
+            <button (click)="deleteEvent(event.id)" class="del-btn">
+              <i class="fa-regular fa-trash-can" style="color: #f01111;font-size:15px;background-color:#fbfbfb;"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <mat-paginator class="custom-paginator"
+                   [length]="events.length"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   (page)="handlePageEvent($event)">
+    </mat-paginator>
+
+    <ng-template #emptyEvents>
+      <div class="empty-events-container">
+        <p class="no-events-message">No events found</p>
+      </div>
+    </ng-template>
+
+    <!-- <div class="storage">
+      <h3 style="color: #595858;margin-left: 20px;font-size: 12px;">Using Storage</h3>
+      <div class="storage-bar">
+        <div class="regular" [style.width]="(storage.regular / storage.total * 100) + '%'" style="border-top-left-radius:15px;border-bottom-left-radius:15px;"></div>
+        <div class="system" [style.width]="(storage.system / storage.total * 100) + '%'"></div>
+        <div class="shared" [style.width]="(storage.shared / storage.total * 100) + '%'"></div>
+        <div class="free" [style.width]="(storage.free / storage.total * 100) + '%'" style="border-top-right-radius:15px;border-bottom-right-radius:15px;"></div>
+      </div>
+      <div class="storage-legend" style="margin-left: 15px;">
+        <span class="legend-item"><span class="regular-color"></span> Regular ({{ regularStorage }}MB)</span>
+        <span class="legend-item"><span class="system-color"></span> System ({{ systemStorage }}MB)</span>
+        <span class="legend-item"><span class="shared-color"></span> Shared ({{ sharedStorage }}MB)</span>
+        <span class="legend-item"><span class="free-color"></span> Free ({{ freeStorage }}MB)</span>
+      </div>
+    </div> -->
+
+    <div class="main-content">
+      <div class="modal" *ngIf="formVisible">
+        <div class="modal-content">
+          <span class="close" (click)="toggleForm()">&times;</span>
+          <div class="form">
+            <form [formGroup]="eventForm" (ngSubmit)="addOrUpdateEvent()">
+              <div class="form-group">
+                <label for="title">Name</label>
+                <input type="text" id="title" formControlName="title" required />
+                <div *ngIf="eventForm.get('title')?.errors?.['required'] && (eventForm.get('title')?.touched || eventForm.get('title')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+                  Title is required
+                </div>
+                <div *ngIf="eventForm.get('title')?.errors?.['minlength'] && (eventForm.get('title')?.touched || eventForm.get('title')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+                  Title must be at least 3 characters long
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" formControlName="description" required></textarea>
+                <div *ngIf="eventForm.get('description')?.errors?.['required'] && (eventForm.get('description')?.touched || eventForm.get('description')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+                  Description is required
+                </div>
+                <div *ngIf="eventForm.get('description')?.errors?.['minlength'] && (eventForm.get('description')?.touched || eventForm.get('description')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+                  Description must be at least 10 characters long
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" id="price" formControlName="price" required />
+                <div *ngIf="eventForm.get('price')?.errors?.['required'] && (eventForm.get('price')?.touched || eventForm.get('price')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+                  Price is required
+                </div>
+                <div *ngIf="eventForm.get('price')?.errors?.['min'] && (eventForm.get('price')?.touched || eventForm.get('price')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+                  Price must be greater than 0
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" formControlName="location" required />
+                <div *ngIf="eventForm.get('location')?.errors?.['required'] && (eventForm.get('location')?.touched || eventForm.get('location')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+                  Location is required
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="eventDate">Event Date</label>
+                <input type="date" id="eventDate" formControlName="eventDate" required />
+                <div *ngIf="eventForm.get('eventDate')?.errors?.['required'] && (eventForm.get('eventDate')?.touched || eventForm.get('eventDate')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+                  Event date is required
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="eventTime">Event Time</label>
+                <input type="time" id="eventTime" formControlName="eventTime" required />
+                <div *ngIf="eventForm.get('eventTime')?.errors?.['required'] && (eventForm.get('eventTime')?.touched || eventForm.get('eventTime')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+                  Event date is required
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="submit-button">{{ isEditing ? 'Update' : 'Add' }} event</button>
+                <button type="button" class="cancel-button" (click)="toggleForm()">Cancel</button>
+              </div>
+            </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="manager-container">
+    <app-manager-sidebar></app-manager-sidebar>
+
+<div class="manager-content">
+    <app-manager-navbar></app-manager-navbar>
+
+    <div class="cards">
+      <div class="card">
+        <i class="fa-solid fa-ticket fa-3x" style="color: aqua;"></i>
+        <p>Bookings</p>
+        
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-circle-user fa-3x" style="color: rgb(178, 3, 178);"></i>
+        <p>Attendees</p>
+        
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-calendar-days fa-3x" style="color: rgb(0, 255, 68);"></i>
+        <p>Events</p>
+        
+      </div>
+  
+    </div>
+
+<div class="add"> 
+    <button class="addbtn" (click)="toggleForm()" style="background-color:#fff;">
+      <i class="fa-duotone fa-plus" style="font-size:25px;color:#939393;background-color:#fff;margin-bottom:17px;"></i>                        
+    </button><p style="font-size:13.7px;margin-top:12px;margin-left:4px;">Add Event</p>
+    
+  </div>
+
+  
+
+<table class="event-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Location</th>
+        <th>Price</th>
+        <th>Event Date</th>
+        <th>Event Time</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of displayedEvents">
+        <td>{{ event.title }}</td>
+        <td>{{ event.description }}</td>
+        <td>{{ event.location }}</td>
+        <td>${{ event.price }}</td>
+        <td>{{ event.date }}</td>
+        <td>{{ event.time }}</td>
+        <td>
+          <button (click)="editEvent(event)" class="edit-btn"><i class="fa-regular fa-pen-to-square" style="color: #10da3c;font-size:15px;background-color:#fbfbfb;"></i></button>
+          <button (click)="deleteEvent(event.id)" class="del-btn"><i class="fa-regular fa-trash-can" style="color: #f01111;font-size:15px;background-color:#fbfbfb;"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+  <mat-paginator class="custom-paginator"
+                 [length]="events.length"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[5, 10, 25, 100]"
+                 (page)="handlePageEvent($event)">
+  </mat-paginator>
+  
+
+
+<ng-template #emptyEvents>
+    <div class="empty-events-container">
+      <p class="no-events-message">No events found</p>
+    </div>
+</ng-template>
+
+<div class="storage">
+  <h3 style="color: #595858;margin-left: 20px;font-size: 12px;">Using Storage</h3>
+  
+  <div class="storage-bar" >
+    <div class="regular" [style.width]="(storage.regular / storage.total * 100) + '%'" style="border-top-left-radius:15px;border-bottom-left-radius:15px;"></div>
+    <div class="system" [style.width]="(storage.system / storage.total * 100) + '%'"></div>
+    <div class="shared" [style.width]="(storage.shared / storage.total * 100) + '%'"></div>
+    <div class="free" [style.width]="(storage.free / storage.total * 100) + '%'" style="border-top-right-radius:15px;border-bottom-right-radius:15px;"></div>
+  </div>
+  <div class="storage-legend" style="margin-left: 15px;">
+    <span class="legend-item"><span class="regular-color"></span> Regular ({{ regularStorage }}MB)</span>
+    <span class="legend-item"><span class="system-color"></span> System ({{ systemStorage }}MB)</span>
+    <span class="legend-item"><span class="shared-color"></span> Shared ({{ sharedStorage }}MB)</span>
+    <span class="legend-item"><span class="free-color"></span> Free ({{ freeStorage }}MB)</span>
+  </div>
+</div>
+
+
+
+<div class="main-content">
+    <div class="modal" *ngIf="formVisible">
+      <div class="modal-content">
+        <span class="close" (click)="toggleForm()">&times;</span>
+  <div class="form">    
+    <form [formGroup]="eventForm" (ngSubmit)="addOrUpdateEvent()">
+      <div class="form-group">
+        <label for="title">Name</label>
+        <input type="text" id="title" formControlName="title" required />
+        <div *ngIf="eventForm.get('title')?.errors?.['required'] && (eventForm.get('title')?.touched || eventForm.get('title')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+          Title is required
+        </div>
+        <div *ngIf="eventForm.get('title')?.errors?.['minlength'] && (eventForm.get('title')?.touched || eventForm.get('title')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+          Title must be at least 3 characters long
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" required></textarea>
+        <div *ngIf="eventForm.get('description')?.errors?.['required']&& (eventForm.get('description')?.touched || eventForm.get('description')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+          Description is required
+        </div>
+        <div *ngIf="eventForm.get('description')?.errors?.['minlength'] && (eventForm.get('description')?.touched || eventForm.get('description')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+          Description must be at least 10 characters long
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" id="price" formControlName="price" required />
+        <div *ngIf="eventForm.get('price')?.errors?.['required'] && (eventForm.get('price')?.touched || eventForm.get('price')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+          Price is required
+        </div>
+        <div *ngIf="eventForm.get('price')?.errors?.['min'] && (eventForm.get('price')?.touched || eventForm.get('price')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+          Price must be greater than 0
+        </div>
+      </div>
+
+     
+
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" id="location" formControlName="location" required />
+        <div *ngIf="eventForm.get('location')?.errors?.['required'] && (eventForm.get('location')?.touched || eventForm.get('location')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+          location is required
+        </div>
+      </div>
+      
+     
+<div class="form-group">
+    <label for="eventDate">Event Date</label>
+    <input type="date" id="eventDate" formControlName="eventDate" required />
+    <div *ngIf="eventForm.get('eventDate')?.errors?.['required'] && (eventForm.get('eventDate')?.touched || eventForm.get('eventDate')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+      Event date is required
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="eventTime">Event Time</label>
+    <input type="time" id="eventTime" formControlName="eventTime" required />
+    <div *ngIf="eventForm.get('eventTime')?.errors?.['required'] && (eventForm.get('eventTime')?.touched || eventForm.get('eventTime')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+      Event time is required
+    </div>
+  </div>
+
+      <div class="form-actions">
+        <button type="submit" class="submit-button">{{ isEditing ? 'Update' : 'Add' }} event</button>
+        <button type="button" class="cancel-button" (click)="toggleForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+   </div>
+  </div>
+</div>
+</div>
+
+</div>
+   -->
+
+
+
+
+
+
+  
+
+
+  <!-- <div class="form-group">
+        <label for="image">Image</label>    
+        <input type="file" (change)="getImagesUrl($event)" name="image" name="image" id="image" formControlName="image" required />
+        <div *ngIf="eventForm.get('image')?.errors?.['required'] && (eventForm.get('image')?.touched || eventForm.get('image')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+          Image upload is required
+        </div>
+        <div *ngIf="eventForm.get('image')?.errors?.['pattern'] && (eventForm.get('image')?.touched || eventForm.get('image')?.dirty)" class="error" style="font-size:12px;color:red;margin-bottom:6px;">
+          Image upload must be valid
+        </div>
+      </div> -->

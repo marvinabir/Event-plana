@@ -1,0 +1,106 @@
+<!-- <div class="page-container">
+    <-sidebar></-sidebar>
+<div class="page-content">
+    <-navbar></-navbar>
+    <page-content></page-content>
+</div>
+</div> -->
+
+
+<div class="manager-container">
+  <app-admin-sidebar></app-admin-sidebar>
+
+  <div class="manager-content">
+    <app-manager-navbar></app-manager-navbar>
+
+    <div class="cards">
+      <div class="card">
+        <i class="fa-solid fa-ticket fa-3x" style="color: aqua;"></i>
+        <p>Bookings</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-circle-user fa-3x" style="color: rgb(178, 3, 178);"></i>
+        <p>Attendees</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-calendar-days fa-3x" style="color: rgb(0, 255, 68);"></i>
+        <p>Events</p>
+      </div>
+    </div>
+
+    <!-- <div class="add">
+      <button class="addbtn" (click)="toggleForm()" style="background-color:#fff;">
+        <i class="fa-duotone fa-plus" style="font-size:25px;color:#939393;background-color:#fff;margin-bottom:17px;"></i>
+      </button>
+      <p style="font-size:13.7px;margin-top:12px;margin-left:4px;">Add Event</p>
+    </div> -->
+
+    <table class="event-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Location</th>
+          <th>Price</th>
+          <th>TicketType </th>
+          <th>Event Date</th>
+          <th>Event Time</th>
+          <!-- <th>Actions</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of displayedEvents">
+          <td>{{ event.title }}</td>
+          <td>{{ event.description }}</td>
+          <td>{{ event.location }}</td>
+          <td>${{ event.price }}</td>
+          <td>
+            <span *ngFor="let ticketType of event.ticketTypes">
+              {{ ticketType.type }}
+            </span>
+          </td>
+          <td>{{ event.date | date }}</td>
+          <td>{{ event.time | date:'shortTime' }}</td>
+          <!-- <td>
+            <button (click)="editEvent(event)" class="edit-btn">
+              <i class="fa-regular fa-pen-to-square" style="color: #10da3c;font-size:15px;background-color:#fbfbfb;"></i>
+            </button>
+            <button (click)="deleteEvent(event.id)" class="del-btn">
+              <i class="fa-regular fa-trash-can" style="color: #f01111;font-size:15px;background-color:#fbfbfb;"></i>
+            </button>
+          </td> -->
+        </tr>
+      </tbody>
+    </table>
+
+    <mat-paginator class="custom-paginator"
+                   [length]="events.length"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   (page)="handlePageEvent($event)">
+    </mat-paginator>
+
+    <ng-template #emptyEvents>
+      <div class="empty-events-container">
+        <p class="no-events-message">No events found</p>
+      </div>
+    </ng-template>
+
+    <div class="storage">
+      <h3 style="color: #595858;margin-left: 20px;font-size: 12px;">Using Storage</h3>
+      <div class="storage-bar">
+        <div class="regular" [style.width]="(storage.regular / storage.total * 100) + '%'" style="border-top-left-radius:15px;border-bottom-left-radius:15px;"></div>
+        <div class="system" [style.width]="(storage.system / storage.total * 100) + '%'"></div>
+        <div class="shared" [style.width]="(storage.shared / storage.total * 100) + '%'"></div>
+        <div class="free" [style.width]="(storage.free / storage.total * 100) + '%'" style="border-top-right-radius:15px;border-bottom-right-radius:15px;"></div>
+      </div>
+      <div class="storage-legend" style="margin-left: 15px;">
+        <span class="legend-item"><span class="regular-color"></span> Regular ({{ regularStorage }}MB)</span>
+        <span class="legend-item"><span class="system-color"></span> System ({{ systemStorage }}MB)</span>
+        <span class="legend-item"><span class="shared-color"></span> Shared ({{ sharedStorage }}MB)</span>
+        <span class="legend-item"><span class="free-color"></span> Free ({{ freeStorage }}MB)</span>
+      </div>
+    </div>
+
+
+

@@ -1,0 +1,43 @@
+### get All Users
+GET http://localhost:3000/admin/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJtYXJ2bzJAZ21haWwuY29tIiwicm9sZSI6IlNVUEVSX0FETUlOIiwiaWF0IjoxNzIxNzUxMjk3LCJleHAiOjE3MjE3NTQ4OTd9.MtCwYVkWzjsfNlFB3fXEmR5OmvUYAQ50age2VbcsoTw
+
+
+
+
+### get single User
+GET http://localhost:3000/admin/users/67
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJtYXJ2bzJAZ21haWwuY29tIiwicm9sZSI6IlNVUEVSX0FETUlOIiwiaWF0IjoxNzIxNzUxMjk3LCJleHAiOjE3MjE3NTQ4OTd9.MtCwYVkWzjsfNlFB3fXEmR5OmvUYAQ50age2VbcsoTw
+
+
+
+### Login as admin
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+
+{
+    "email": "marvo2@gmail.com",
+    "password": "marvo@MIX"
+}
+
+
+### update userRoles
+PUT http://localhost:3000/admin/users/116/role
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJtYXJ2bzJAZ21haWwuY29tIiwicm9sZSI6IlNVUEVSX0FETUlOIiwiaWF0IjoxNzIxNzM5NDMwLCJleHAiOjE3MjE3NDMwMzB9.6tJn91IquUyDL38S1cvKD_Pn83WPF6LEivHw-Ofz18c
+
+
+{
+  "role": "ATTENDEE"
+}
+
+
+
+### delete User
+DELETE  http://localhost:3000/admin/users/67
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJtYXJ2bzJAZ21haWwuY29tIiwicm9sZSI6IlNVUEVSX0FETUlOIiwiaWF0IjoxNzIxNzUxMjk3LCJleHAiOjE3MjE3NTQ4OTd9.MtCwYVkWzjsfNlFB3fXEmR5OmvUYAQ50age2VbcsoTw
+

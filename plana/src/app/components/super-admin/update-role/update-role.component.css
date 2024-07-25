@@ -1,0 +1,199 @@
+.page-container {
+  display: flex;
+ 
+}
+
+
+.page-content{
+  margin-left: 270px;
+}
+
+/* .update-role-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-top: 30px;
+   
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 1em;
+    
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5em;
+  }
+  
+  input, select {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 0.75em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button[disabled] {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .error {
+    color: red;
+    font-size: 0.875em;
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 1em;
+    text-align: center;
+  }
+   */
+
+   .update-role-container {
+    width: 100%;
+    margin: 50px auto;
+    padding: 30px;
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .update-role-container h2 {
+    color: #444;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: bold;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .form-group small.error {
+    color: #e74c3c;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: block;
+  }
+  
+  .error-message {
+    color: #e74c3c;
+    font-size: 1em;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
+  button[type="submit"]:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+
+
+   /* the below is the complete code , generate css for the form only theme is shades of grey make it beautiful user friendly :
+<div class="page-container">
+  <app-admin-sidebar></app-admin-sidebar>
+
+<div class="page-content">
+  
+<div class="update-role-container">
+  <h2>Update User Role</h2>
+  <form [formGroup]="updateRoleForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="userId">User ID</label>
+      <input id="userId" formControlName="userId" type="number" />
+      <div *ngIf="updateRoleForm.get('userId')?.invalid && updateRoleForm.get('userId')?.touched">
+        <small class="error">Please enter a valid User ID.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="role">Role</label>
+      <select id="role" formControlName="role">
+        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+      </select>
+      <div *ngIf="updateRoleForm.get('role')?.invalid && updateRoleForm.get('role')?.touched">
+        <small class="error">Please select a valid role.</small>
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <button type="submit" [disabled]="updateRoleForm.invalid">Update Role</button>
+  </form>
+</div>
+</div>
+</div>
+
+.page-container {
+  display: flex;
+ }
+
+.page-content{
+  margin-left: 270px;
+}
+
+dont forget to make it extremely beautiful and out of this world .. dont fail me especially on the beauty part */

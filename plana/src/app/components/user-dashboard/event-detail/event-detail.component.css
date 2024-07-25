@@ -1,0 +1,86 @@
+.detail-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 20px;
+}
+
+.event-detail {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: 300px;
+  height: 500px;
+  margin: 20px;
+ overflow: hidden;
+}
+
+
+/* Overall form container */
+.booking-form-container {
+  background: #ffffff; /* White background for a clean look */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  padding: 24px; /* Adequate padding */
+  max-width: 400px; /* Limit form width */
+  margin: 20px auto; /* Center form horizontally */
+  transition: all 0.3s ease; /* Smooth transitions */
+}
+
+/* Heading for the form */
+.booking-form-container h3 {
+  font-size: 1.5rem; /* Larger font size for the heading */
+  margin-bottom: 16px; /* Space below the heading */
+  color: #333; /* Dark color for readability */
+}
+
+/* Form label */
+.booking-form-container label {
+  display: block; /* Block display for labels */
+  margin-bottom: 8px; /* Space below the label */
+  font-weight: 500; /* Medium font weight */
+  color: #555; /* Slightly lighter than text */
+}
+
+/* Select element for ticket types */
+.booking-form-container select {
+  width: 100%; /* Full width */
+  padding: 12px; /* Padding inside the select */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 1rem; /* Standard font size */
+  margin-bottom: 16px; /* Space below the select */
+  transition: border-color 0.3s ease; /* Smooth border color change */
+}
+
+/* Focus state for select */
+.booking-form-container select:focus {
+  border-color: #007bff; /* Blue border on focus */
+  outline: none; /* Remove default outline */
+}
+
+/* Button for submission */
+.booking-form-container button {
+  background: #007bff; /* Blue background */
+  color: #fff; /* White text */
+  padding: 12px 24px; /* Padding inside the button */
+  border: none; /* Remove default border */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 1rem; /* Standard font size */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+/* Hover state for button */
+.booking-form-container button:hover {
+  background: #0056b3; /* Darker blue on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Disabled button state */
+.booking-form-container button:disabled {
+  background: #c0c0c0; /* Grey background */
+  cursor: not-allowed; /* Not-allowed cursor */
+}

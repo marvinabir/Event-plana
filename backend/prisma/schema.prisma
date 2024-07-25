@@ -1,0 +1,103 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            Int           @id @default(autoincrement())
+  email         String        @unique
+  password      String
+  name          String
+  role          Role          @default(ATTENDEE)
+  events        Event[]       @relation("EventManagers")
+  bookings      Booking[]
+  notifications Notification[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Event {
+  id            Int           @id @default(autoincrement())
+  title         String
+  description   String
+  date          DateTime
+  time          DateTime
+  location      String
+  ticketTypes   TicketType[]
+  image         String?
+  price         Float
+  manager       User          @relation("EventManagers", fields: [managerId], references: [id])
+  managerId     Int
+  bookings      Booking[]
+  notifications Notification[]
+  analytics     Analytics[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Booking {
+  id            Int           @id @default(autoincrement())
+  user          User          @relation(fields: [userId], references: [id])
+  userId        Int
+  event         Event         @relation(fields: [eventId], references: [id])
+  eventId       Int
+  ticketType    TicketType    @relation(fields: [ticketTypeId], references: [id])
+  ticketTypeId  Int
+  status        BookingStatus @default(CONFIRMED)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model TicketType {
+  id            Int           @id @default(autoincrement())
+  type          String
+  price         Float
+  availability  Int
+  event         Event         @relation(fields: [eventId], references: [id])
+  eventId       Int
+  bookings      Booking[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+enum Role {
+  ATTENDEE
+  EVENT_MANAGER
+  SUPER_ADMIN
+}
+
+enum BookingStatus {
+  CONFIRMED
+  CANCELLED
+}
+
+model Notification {
+  id            Int           @id @default(autoincrement())
+  user          User          @relation(fields: [userId], references: [id])
+  userId        Int
+  event         Event?        @relation(fields: [eventId], references: [id])
+  eventId       Int?
+  message       String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Analytics {
+  id            Int           @id @default(autoincrement())
+  event         Event         @relation(fields: [eventId], references: [id])
+  eventId       Int
+  totalBookings Int
+  revenue       Float
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}

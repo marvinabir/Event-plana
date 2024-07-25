@@ -1,0 +1,15 @@
+.page-container {
+    display: flex;
+   
+  }
+
+  
+.profile-container {
+   
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  

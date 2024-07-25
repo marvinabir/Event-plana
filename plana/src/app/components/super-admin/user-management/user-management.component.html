@@ -1,0 +1,62 @@
+<!-- <div class="page-container">
+    <-sidebar></-sidebar>
+<div class="page-content">
+    <-navbar></-navbar>
+    <page-content></page-content>
+</div>
+</div> -->
+
+
+<div class="page-container">
+  <app-admin-sidebar></app-admin-sidebar>
+
+<div class="page-content">
+  
+<h2 style="margin-left: 200px;">User Management</h2>
+
+<table class="event-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Role</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of paginatedUsers">
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.role }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+        <button (click)="deleteUser(user.id)">Delete</button>
+      </td>     
+    </tr>
+  </tbody>
+</table>
+<ng-template #emptyUsers>
+  <div class="empty-users-container">
+    <p class="no-users-message">No users found</p>
+  </div>
+</ng-template>
+
+<div class="pagination-controls">
+  <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+</div>
+</div>
+
+</div>
+
+
+
+  
+
+
+
+
+  
+  

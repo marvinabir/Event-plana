@@ -1,0 +1,30 @@
+<!-- <div class="bookings-container">
+  <h2>My Bookings</h2>
+  <div *ngIf="bookings.length; else noBookings">
+    <div *ngFor="let booking of bookings" class="booking-card">
+      <h3>{{ booking.userId }}</h3>
+      <p>Ticket Type: {{ booking.ticketTypeId }}</p>
+      <p>Status: {{ booking.status }}</p>     
+      <p>Location: {{ booking.status }}</p>
+      <p>Date: {{ booking.createdAt | date: 'shortDate' }}</p>
+    </div>
+  </div>
+  <ng-template #noBookings>
+    <p>You have no bookings yet.</p>
+  </ng-template>
+</div> -->
+<div class="bookings-container">
+  <h2>My Bookings</h2>
+  <div *ngIf="bookings.length; else noBookings">
+    <div *ngFor="let booking of bookings" class="booking-card">
+      <h3>{{ events[booking.eventId].title }}</h3>
+      <p>Location: {{ events[booking.eventId].location }}</p>
+      <p>Ticket Type: {{ ticketTypes[booking.ticketTypeId].type }}</p>
+      <p>Status: {{ booking.status }}</p>
+      <p>Date: {{ events[booking.eventId].date | date: 'shortDate' }} {{ events[booking.eventId].time | date: 'shortTime' }}</p>
+    </div>
+  </div>
+  <ng-template #noBookings>
+    <p>You have no bookings yet.</p>
+  </ng-template>
+</div>

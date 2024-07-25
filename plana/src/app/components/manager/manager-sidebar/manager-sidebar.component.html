@@ -1,0 +1,37 @@
+<div class="sidebar">
+    <div class="logo">
+      <img src="../assets/sm.png" alt="plana Logo">
+    </div>
+    <div class="sidebar-links" >
+      <a routerLink="/admin-dashboard" routerLinkActive="active" class="sidebar-link" style="color:#7d7d7d;">
+        <fa-icon [icon]="faChartPie"></fa-icon>
+        <span>Dashboard</span>
+      </a>
+      <a routerLink="/me" routerLinkActive="active" class="sidebar-link" style="color:#7d7d7d;">
+        <fa-icon [icon]="faBox"></fa-icon>
+        <span>Event-management</span>
+      </a>
+      <a routerLink="/admin-dashboard/order-details" class="sidebar-link" routerLinkActive="active"  style="color:#7d7d7d;">
+        <fa-icon [icon]="faClipboardList"></fa-icon>
+        <span> Ticket-management</span>
+      </a>
+      <a routerLink="/admin-dashboard/categories" routerLinkActive="active" class="sidebar-link" style="color:#7d7d7d;">
+        <fa-icon [icon]="faTags"></fa-icon>
+        <span>Bookings Stats</span>
+      </a>
+      <a routerLink="/admin-dashboard/users" routerLinkActive="active" class="sidebar-link" style="color:#7d7d7d;">
+        <fa-icon [icon]="faUsers"></fa-icon>
+        <span>Users</span>
+      </a>
+      <a routerLink="/mp" routerLinkActive="active" class="sidebar-link" style="color:#7d7d7d;">
+        <fa-icon [icon]="faUserCog"></fa-icon>
+        <span>Profile Settings</span>
+      </a>
+      
+      <a routerLink="/" class="sidebar-link" style="color:#7d7d7d;">
+          <fa-icon [icon]="faSignOutAlt"></fa-icon>
+          <span>Logout</span>
+      </a>
+    </div>
+    </div>
+  
